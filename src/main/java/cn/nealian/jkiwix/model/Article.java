@@ -5,25 +5,26 @@ import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
 
-@Document(indexName = "wiki", type = "article")
+@Document(indexName = "wiki_article")
 public class Article {
 	@Id
-	private String id;
-	
+	@Field(index = true, store = true, type = FieldType.Keyword)
+	public String id;
+
 	@Field(index = true, store = true, type = FieldType.Keyword)
 	public String book;
-	
+
+	@Field(index = true, store = true, type = FieldType.Integer)
+	public int index;
+
 	@Field(index = true, store = true, type = FieldType.Keyword)
-	private int index;
-	
-	@Field(index = true, store = true, type = FieldType.Text)
-	private String title;
-	
-	@Field(index = true, store = true, type = FieldType.Text)
-	private String url;
-	
+	public String title;
+
+	@Field(index = true, store = true, type = FieldType.Keyword)
+	public String url;
+
 	@Field(index = true, store = false, type = FieldType.Text)
-	private String content;
+	public String content;
 
 	public String getTitle() {
 		return title;
