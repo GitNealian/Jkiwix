@@ -2,14 +2,21 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title th:text=${article.title}>Insert title here</title>
+<title th:text=${article.title}></title>
 
-<link rel="stylesheet" type="text/css" href="/easyui/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css"
+	href="/easyui/themes/default/easyui.css">
 <link rel="stylesheet" type="text/css" href="/easyui/themes/icon.css">
+<link rel="stylesheet" type="text/css"
+	href="/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css"
+	href="/style.css">
+</head>
+<body>
+	<div th:include="toolBar :: toolBar"></div> 
+	<div id="content" th:utext=${article.content}></div>
+</body>
 <script type="text/javascript" src="/easyui/jquery.min.js"></script>
 <script type="text/javascript" src="/easyui/jquery.easyui.min.js"></script>
-</head>
-<body th:utext=${article.content}>
-
-</body>
+<script type="text/javascript" src="/main.js"></script>
 </html>

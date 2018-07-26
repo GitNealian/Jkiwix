@@ -1,0 +1,43 @@
+html {
+	height: 100%;
+}
+
+body {
+	min-width: 1024px;
+	overflow-x: scroll;
+	margin: 0;
+	height: 100%;
+}
+
+#toolBar {
+	height: 40px;
+	background: lightgray;
+}
+
+#searchBar {
+	position: absolute;
+	left: 10%;
+	width: 80%;
+	height: 30px;
+	padding-top: 5px;
+	display: inline-block;
+	min-width: 800px;
+}
+
+#content {
+	margin-top: 10px;
+}
+
+#leftMenu {
+	padding-top: 5px;
+	margin-right: 50px;
+	display: inline-block;
+	float: left;
+	margin-left: 20px;
+}
+
+#rightMenu {
+	float: right;
+	margin-right: 20px;
+	padding-top: 5px;
+}

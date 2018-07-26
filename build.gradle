@@ -21,6 +21,7 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-data-elasticsearch')
 	compile group: 'org.springframework.boot', name: 'spring-boot-starter-thymeleaf', version: '2.0.3.RELEASE'
 	compile group: 'org.springframework.boot', name: 'spring-boot-devtools', version: '2.0.3.RELEASE'
+	compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.11.0'
 	compile group: 'org.tukaani', name: 'xz', version: '1.8'
 	compile fileTree(dir: 'lib/', include: '*.jar')
 	

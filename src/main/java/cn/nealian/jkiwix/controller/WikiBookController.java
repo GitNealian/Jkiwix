@@ -1,6 +1,8 @@
 package cn.nealian.jkiwix.controller;
 
+import java.io.File;
 import java.io.IOException;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -40,5 +42,16 @@ public class WikiBookController {
 		model.addAttribute("article", article);
 		return "article";
 	}
-
+	public String addWikiBook(String bookName, String path) {
+		File  f = new File(path);
+		if(f.exists()) {
+			WikiBook book = new WikiBook();
+			book.setId(UUID.randomUUID().toString());
+			book.setName(bookName);
+			book.setPath(path);
+			bookRepository.save(book);
+			return "{'status': 'success'}";
+		}
+		return "{'status': 'error'}";
+	}
 }
