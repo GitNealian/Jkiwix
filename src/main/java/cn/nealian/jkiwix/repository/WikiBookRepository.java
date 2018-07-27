@@ -5,5 +5,4 @@ import org.springframework.data.elasticsearch.repository.ElasticsearchCrudReposi
 import cn.nealian.jkiwix.model.WikiBook;
 
 public interface WikiBookRepository extends ElasticsearchCrudRepository<WikiBook, String>{
-	public WikiBook findByName(String name);
 }

@@ -23,6 +23,8 @@ dependencies {
 	compile group: 'org.springframework.boot', name: 'spring-boot-devtools', version: '2.0.3.RELEASE'
 	compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.11.0'
 	compile group: 'org.tukaani', name: 'xz', version: '1.8'
+	compile group: 'net.sourceforge.nekohtml', name: 'nekohtml', version: '1.9.22'
+	
 	compile fileTree(dir: 'lib/', include: '*.jar')
 	
 	testCompile 'junit:junit:4.12'

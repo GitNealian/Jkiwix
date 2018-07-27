@@ -28,14 +28,14 @@ public class IndexController {
 	ArticleRepository articleRepository;
 
 	@GetMapping("/")
-	public String createIndex(@RequestParam("bookName") String bookName) {
-		WikiBook book = bookRepository.findByName(bookName);
+	public String createIndex(@RequestParam("bookId") String bookId) {
+		WikiBook book = bookRepository.findById(bookId).get();
 		try {
 			ZimFile file = new ZimFile(book.path);
 			Stream.iterate(0, item -> item + 1).limit(file.getArticleCount()).parallel().forEach(i -> {
 				Article a = new Article();
 				a.setId(UUID.randomUUID().toString());
-				a.setBook(bookName);
+				a.setBook(bookId);
 				try {
 					DirectoryEntry entry = file.getEntry(i, false);
 					a.setIndex(i);
@@ -54,6 +54,6 @@ public class IndexController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return bookName;
+		return bookId;
 	}
 }

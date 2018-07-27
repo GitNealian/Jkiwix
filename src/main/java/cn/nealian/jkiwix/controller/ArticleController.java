@@ -11,7 +11,6 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.nealian.jkiwix.model.Article;
 import cn.nealian.jkiwix.model.WikiBook;
@@ -30,9 +29,9 @@ public class ArticleController {
 	@Autowired
 	ArticleRepository articlerRepository;
 
-	@GetMapping("{bookname}/article")
-	public String getMainPage(@PathVariable("bookname") String bookname, ModelMap model) {
-		WikiBook book = bookRepository.findByName(bookname);
+	@GetMapping("{bookid}/article")
+	public String getMainPage(@PathVariable("bookid") String bookid, ModelMap model) {
+		WikiBook book = bookRepository.findById(bookid).get();
 		if (book != null) {
 			ZimFile file;
 			try {
@@ -45,10 +44,10 @@ public class ArticleController {
 		return "article";
 	}
 
-	@GetMapping(value = "{bookname}/article/{url}")
-	public String getArticle(@PathVariable("bookname") String bookname, @PathVariable("url") String url,
+	@GetMapping(value = "{bookid}/article/{url}")
+	public String getArticle(@PathVariable("bookid") String bookid, @PathVariable("url") String url,
 			ModelMap model) {
-		WikiBook book = bookRepository.findByName(bookname);
+		WikiBook book = bookRepository.findById(bookid).get();
 		if (book != null) {
 			ZimFile file;
 			try {
@@ -65,14 +64,14 @@ public class ArticleController {
 		return "article";
 	}
 
-	@GetMapping(value = "{bookname}/*/**")
-	public void getResource(@PathVariable("bookname") String bookname, HttpServletRequest request,
+	@GetMapping(value = "{bookid}/*/**")
+	public void getResource(@PathVariable("bookid") String bookid, HttpServletRequest request,
 			HttpServletResponse response) {
-		WikiBook book = bookRepository.findByName(bookname);
+		WikiBook book = bookRepository.findById(bookid).get();
 		if (book != null) {
 			try {
 				ZimFile file = new ZimFile(book.path);
-				DirectoryEntry entry = file.getEntry(request.getRequestURI().replace("/wiki/abook/", ""), true);
+				DirectoryEntry entry = file.getEntry(request.getRequestURI().replace("/wiki/"+bookid+"/", ""), true);
 				if (entry == null) {
 					return;
 				}

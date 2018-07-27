@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
 <meta charset="UTF-8">
 <title></title>
@@ -11,6 +12,7 @@
 	href="/font-awesome/css/font-awesome.min.css">
 <link rel="stylesheet" type="text/css" href="/style.css">
 </head>
+
 <body>
 	<div th:include="toolBar::toolBar"></div>
 	<div class="easyui-layout" data-options="fit:true">
@@ -21,11 +23,56 @@
 				Wiki Books</div>
 
 		</div>
-		<div data-options="region:'center',title:''"
-			style="padding: 5px; background: #eee;"></div>
+		<div data-options="region:'center',title:''" style="padding: 5px;">
+			<ul class="book-list" >
+				<li class="book-item" th:each="book: ${bookList}">
+					<h3 th:text="${book.Title}">Wikibooks</h3>
+					<table
+						style="overflow-x: hidden; overflow-y: hidden; margin-top: 0px; margin-bottom: 0px; padding-top: 0px; padding-bottom: 0px;">
+						<tbody>
+							<tr>
+								<td
+									style="background-repeat: no-repeat;">
+									<img th:src="'wiki/'+${book.id}+'/-/favicon'">
+									</img>
+									<div style="width: 50px"></div>
+								</td>
+								<td style="width: 100%;"><span th:text="${book.description}">Fram</span>
+									<table style="font-size: small; color: grey; width: 100%;">
+										<tbody>
+											<tr>
+												<td style="width: 50%" th:text="'Size: '+${book.size}">Size:
+													2 MB (177 articles, 262 medias)</td>
+												<td th:text="'Created: '+ ${book.date}">Date: 2015-02-20</td>
+												<td style="vertical-align: bottom; width: 20%" rowspan="3">
+													<a id="btnRemove" class="easyui-linkbutton"
+													data-options="">Remove</a> <a id="btnLoad" th:href="'wiki/'+${book.id}+'/article/'"
+													class="easyui-linkbutton" data-options="">Load</a>
+												</td>
+											</tr>
+											<tr>
+												<td th:text="'Author: ' + ${book.Author}">Author: Wikibooks</td>
+												<td th:text="'Language: ' + ${book.language}">Language: ang</td>
+											</tr>
+											<tr>
+												<td th:text="'Publisher: '+${book.Publisher}">Publisher: Kiwix</td>
+												<td></td>
+											</tr>
+										</tbody>
+									</table>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</li>
+
+			</ul>
+
+		</div>
 	</div>
 </body>
 <script type="text/javascript" src="/easyui/jquery.min.js"></script>
 <script type="text/javascript" src="/easyui/jquery.easyui.min.js"></script>
 <script type="text/javascript" src="/main.js"></script>
+
 </html>
