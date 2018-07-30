@@ -7,6 +7,7 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -17,21 +18,21 @@ import cn.nealian.nzim.ArticleEntry;
 import cn.nealian.nzim.ZimFile;
 
 @Controller
-@RequestMapping(value="wikibook")
+@RequestMapping(value = "/wikibook")
 public class WikiBookController {
-	
+
 	@Autowired
 	WikiBookRepository bookRepository;
-	
-	@GetMapping(value="/add")
+
+	@PostMapping(value = "/add")
 	@ResponseBody
-	public String addWikiBook(@RequestParam("path")String path) {
-		File  f = new File(path);
-		if(f.exists()) {
+	public String addWikiBook(@RequestParam("path") String path) {
+		File f = new File(path);
+		if (f.exists()) {
 			WikiBook book = new WikiBook();
 			book.setId(UUID.randomUUID().toString());
 			book.setPath(path);
-			book.setSize(f.length()/1024/1024 + "MB");
+			book.setSize(f.length() / 1024 / 1024 + "MB");
 			try {
 				ZimFile file = new ZimFile(path);
 				book.setTitle(readMetaData("Title", file));
@@ -41,19 +42,24 @@ public class WikiBookController {
 				book.setPublisher(readMetaData("Publisher", file));
 				book.setLanguage(readMetaData("Language", file));
 			} catch (IOException e) {
-				e.printStackTrace();
+				return "{'status': 'error', 'msg':'"+e.getMessage()+"'}";
 			}
 			bookRepository.save(book);
 			return "{'status': 'success'}";
 		}
-		return "{'status': 'error'}";
+		return "{'status': 'error','msg':'文件不存在'}";
+	}
+
+	@GetMapping(value = "/delete")
+	@ResponseBody
+	public String deleteWikiBook(@RequestParam("bookid") String bookid) {
+		bookRepository.deleteById(bookid);
+		return "{'status': 'success'}";
 	}
 	
 	private String readMetaData(String property, ZimFile file) throws IOException {
-		System.out.println(property);
-		ArticleEntry entry = (ArticleEntry) file.getEntry("M/"+property, false);
-		System.out.println(entry);
-		if(entry instanceof ArticleEntry) {
+		ArticleEntry entry = (ArticleEntry) file.getEntry("M/" + property, false);
+		if (entry instanceof ArticleEntry) {
 			byte[] buff = new byte[entry.getBlobSize()];
 			entry.getInputStream().read(buff);
 			return new String(buff, "utf-8");
