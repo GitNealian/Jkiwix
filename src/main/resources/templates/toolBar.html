@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org">
 <body>
-	<div th:fragment="toolBar">
+	<div th:fragment="toolBar(q)">
 		<div id="toolBar">
 			<div id="leftMenu">
 				<a id="btnBook" href="javascript:goToIndexpage();"
@@ -18,7 +18,7 @@
 				<div>
 					<form id="searchForm" action="./search">
 						<input id="searchBox" class="easyui-searchbox" style="width: 100%"
-							data-options="searcher:doSearch,prompt:'Please Input Value'"
+							th:data-options="'searcher:doSearch,prompt:\'Please Input Value\',value:\''+${q!=null?q:''}+'\''"
 							name="q"></input>
 					</form>
 				</div>

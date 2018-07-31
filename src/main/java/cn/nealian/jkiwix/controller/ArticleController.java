@@ -1,6 +1,7 @@
 package cn.nealian.jkiwix.controller;
 
 import java.io.IOException;
+import java.util.NoSuchElementException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -31,15 +32,19 @@ public class ArticleController {
 
 	@GetMapping("{bookid}/article")
 	public String getMainPage(@PathVariable("bookid") String bookid, ModelMap model) {
-		WikiBook book = bookRepository.findById(bookid).get();
-		if (book != null) {
-			ZimFile file;
-			try {
-				file = new ZimFile(book.path);
-				model.addAttribute("article", getEntryAsArticle(file.getEntry(file.getMainPage(), true)));
-			} catch (IOException e) {
-				e.printStackTrace();
+		try {
+			WikiBook book = bookRepository.findById(bookid).get();
+			if (book != null) {
+				ZimFile file;
+				try {
+					file = new ZimFile(book.path);
+					model.addAttribute("article", getEntryAsArticle(file.getEntry(file.getMainPage(), true)));
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 			}
+		}catch (NoSuchElementException e) {
+			
 		}
 		return "article";
 	}
@@ -54,7 +59,7 @@ public class ArticleController {
 				file = new ZimFile(book.path);
 				DirectoryEntry entry = file.getEntry("A/" + url, true);
 				if(entry == null) {
-					return "404";
+					return "/error/404";
 				}
 				model.addAttribute("article", getEntryAsArticle(entry));
 			} catch (IOException e) {

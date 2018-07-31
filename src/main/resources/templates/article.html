@@ -13,7 +13,7 @@
 	href="/style.css">
 </head>
 <body>
-	<div th:include="toolBar :: toolBar"></div> 
+	<div th:include="toolBar :: toolBar(null)"></div> 
 	<div id="content" th:utext=${article.content}></div>
 </body>
 <script type="text/javascript" src="/easyui/jquery.min.js"></script>

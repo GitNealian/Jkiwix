@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.nealian.jkiwix.model.WikiBook;
+import cn.nealian.jkiwix.repository.ArticleRepository;
 import cn.nealian.jkiwix.repository.WikiBookRepository;
 import cn.nealian.nzim.ArticleEntry;
 import cn.nealian.nzim.ZimFile;
@@ -23,6 +24,8 @@ public class WikiBookController {
 
 	@Autowired
 	WikiBookRepository bookRepository;
+	@Autowired
+	ArticleRepository articleRepository;
 
 	@PostMapping(value = "/add")
 	@ResponseBody
@@ -55,6 +58,7 @@ public class WikiBookController {
 	@ResponseBody
 	public String deleteWikiBook(@RequestParam("bookid") String bookid) {
 		bookRepository.deleteById(bookid);
+		// TODO： 删除索引
 		return "{'status': 'success'}";
 	}
 

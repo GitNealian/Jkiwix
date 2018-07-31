@@ -14,7 +14,7 @@
 </head>
 
 <body>
-	<div th:include="toolBar::toolBar"></div>
+	<div th:include="toolBar::toolBar(${null})"></div>
 	<div class="easyui-layout" data-options="fit:true">
 		<div data-options="region:'west',title:'',split:true"
 			style="width: 300px;">
@@ -26,7 +26,9 @@
 		<div data-options="region:'center',title:''" style="padding: 5px;">
 			<ul class="book-list">
 				<li class="book-item" th:each="book: ${bookList}">
-					<h3 th:text="${book.Title}">Wikibooks</h3>
+					<h3 style="float:left" th:text="${book.Title}">Wikibooks</h3>
+					<h6 style="margin:0" th:text="${book.status==1?'(正在创建索引)':book.status==0?'(未索引)':'(已索引)'}"></h6>
+					<div style="clear:both"></div>
 					<table
 						style="overflow-x: hidden; overflow-y: hidden; margin-top: 0px; margin-bottom: 0px; padding-top: 0px; padding-bottom: 0px;">
 						<tbody>
