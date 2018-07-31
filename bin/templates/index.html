@@ -46,7 +46,11 @@
 												<td style="vertical-align: bottom; width: 20%" rowspan="3">
 													<a id="btnRemove"
 													th:href="'javascript:removeBook(\''+${book.id}+'\')'"
-													class="easyui-linkbutton" data-options="">Remove</a> <a
+													class="easyui-linkbutton" data-options="">Remove</a>
+													 <a th:if="${book.status eq 0}"
+													id="btnLoad" th:href="'javascript:askForIndex(\''+${book.id}+'\')'"
+													class="easyui-linkbutton" data-options="">Load</a>
+													<a th:if="${book.status ne 0}"
 													id="btnLoad" th:href="'wiki/'+${book.id}+'/article/'"
 													class="easyui-linkbutton" data-options="">Load</a>
 												</td>
@@ -85,7 +89,6 @@
 	window.onload = function() {
 		$('#btnHome').linkbutton('disable');
 		$('#btnMark').linkbutton('disable');
-		$('#searchBox').searchbox('disable');
 		$('#btnOther').linkbutton('enable');
 	};
 </script>

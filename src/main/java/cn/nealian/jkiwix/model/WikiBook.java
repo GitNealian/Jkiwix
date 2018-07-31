@@ -30,6 +30,9 @@ public class WikiBook {
 	public String language;
 	@Field(index = true, store = true, type = FieldType.Keyword)
 	public String description;
+	@Field(index = true, store = true, type = FieldType.Keyword)
+	public int status;
+	
 	
 	public String getId() {
 		return id;
@@ -118,4 +121,13 @@ public class WikiBook {
 	public void setTitle(String title) {
 		this.title = title;
 	}
+
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
+	}
+
 }

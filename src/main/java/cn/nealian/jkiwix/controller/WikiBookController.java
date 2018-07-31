@@ -41,8 +41,9 @@ public class WikiBookController {
 				book.setDescription(readMetaData("Description", file));
 				book.setPublisher(readMetaData("Publisher", file));
 				book.setLanguage(readMetaData("Language", file));
+				book.setStatus(0);// not indexed yet;
 			} catch (IOException e) {
-				return "{'status': 'error', 'msg':'"+e.getMessage()+"'}";
+				return "{'status': 'error', 'msg':'" + e.getMessage() + "'}";
 			}
 			bookRepository.save(book);
 			return "{'status': 'success'}";
@@ -56,7 +57,7 @@ public class WikiBookController {
 		bookRepository.deleteById(bookid);
 		return "{'status': 'success'}";
 	}
-	
+
 	private String readMetaData(String property, ZimFile file) throws IOException {
 		ArticleEntry entry = (ArticleEntry) file.getEntry("M/" + property, false);
 		if (entry instanceof ArticleEntry) {

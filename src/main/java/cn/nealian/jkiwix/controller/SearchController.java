@@ -17,11 +17,17 @@ public class SearchController {
 	
 	@Autowired
 	ArticleRepository articleRepository;
-	@GetMapping(value="/wiki/{bookid}/search")
+	@GetMapping(value="/wiki/{bookid}/article/search")
 	public String doSearch(@PathVariable("bookid")String bookid, @RequestParam("q") String q, ModelMap model) {
 		List<Article> articles = articleRepository.findByContentAndBook(q, bookid);
 		model.addAttribute("articles", articles);
 		return "search";
 	}
 	
+	@GetMapping(value="/search")
+	public String doSearch(@RequestParam("q") String q, ModelMap model) {
+		List<Article> articles = articleRepository.findByContent(q);
+		model.addAttribute("articles", articles);
+		return "search";
+	}
 }

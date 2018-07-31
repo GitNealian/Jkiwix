@@ -61,7 +61,26 @@ function removeBook(bookid) {
 	    	});
 	    }
 	});
-	
-	
 	console.log('remove');
+}
+
+function askForIndex(bookid) {
+	$.messager.confirm('创建索引','此ZIM尚未创建索引，是否现在创建？',function(r){
+	    if (r){
+	    	$.ajax({
+	    		url: '/index/?bookid='+bookid,
+	    		method: 'GET',
+	    		success: function (data) {
+	    			var data = eval('(' + data + ')');
+	    	        if(data.status == 'success'){
+	    	        	location.href = '/wiki/'+bookid+'/article/';
+	    	        }else{
+	    	        	$.messager.alert('创建索引失败', data.msg);
+	    	        }
+	    		}
+	    	});
+	    }else{
+	    	location.href = '/wiki/'+bookid+'/article/';
+	    }
+	});
 }

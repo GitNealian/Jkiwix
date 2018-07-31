@@ -71,3 +71,8 @@ h3 {
 	box-shadow: none !important;
 	margin-top: 1px;
 }
+
+.result-ul {
+    background: #efefef;
+    padding: 30px;
+}
